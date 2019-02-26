@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="log4j-1.2.17">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/log4j-1.2.17.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://F:/后端开发工具/mybatis-3-mybatis-3.4.1.zip!/mybatis-3-mybatis-3.4.1/src/main/java" />
+      <root url="jar://F:/后端开发工具/mybatis-3-mybatis-3.4.1.zip!/mybatis-3-mybatis-3.4.1/src/test/java" />
+      <root url="jar://$USER_HOME$/.ideaLibSources/log4j-1.2.17-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
