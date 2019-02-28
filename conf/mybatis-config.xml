@@ -19,5 +19,6 @@
     </environments>
     <mappers>
         <mapper resource="EmployeeMapper.xml" />
+        <mapper class="com.myBatis.dao.EmployeeAnnotation"></mapper>
     </mappers>
 </configuration>

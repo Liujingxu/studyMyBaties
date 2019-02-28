@@ -1,5 +1,6 @@
 package com.myBatis.entity;
 
+import com.myBatis.dao.EmployeeAnnotation;
 import com.myBatis.dao.EmployeeMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -48,6 +49,21 @@ class EmployeeTest {
             Employee employee = mapper.getEmpById(1713010614);
             System.out.println(employee);
         }finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void test3() throws IOException {
+        SqlSessionFactory sqlSessionFactory  = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        try {
+            EmployeeAnnotation mapper = sqlSession.getMapper(EmployeeAnnotation.class);
+            Employee emp = mapper.getEmpById(1713010613);
+
+            System.out.println(emp);
+        } finally {
             sqlSession.close();
         }
     }
