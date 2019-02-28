@@ -5,4 +5,16 @@
     <select id="getEmpById" resultType="emp">
          select * from table_employee where id = #{id}
     </select>
+
+    <insert id="insertEmp" parameterType="com.myBatis.entity.Employee">
+        insert into table_employee values (#{id}, #{lastName}, #{gender}, #{email})
+    </insert>
+
+    <delete id="deleteEmp" >
+        delete from table_employee where id = #{id}
+    </delete>
+
+    <update id="updateEmp" >
+        update table_employee set last_name = #{lastName}, gender = #{gender}, email = #{email} where id = #{id}
+    </update>
 </mapper>
