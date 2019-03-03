@@ -17,4 +17,8 @@
     <update id="updateEmp" >
         update table_employee set last_name = #{lastName}, gender = #{gender}, email = #{email} where id = #{id}
     </update>
+    
+    <select id="getEmpByNameAndEmail" resultType="com.myBatis.entity.Employee">
+        select * from table_employee where last_name = #{id} and email = #{email};
+    </select>
 </mapper>

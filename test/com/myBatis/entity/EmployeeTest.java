@@ -114,5 +114,20 @@ class EmployeeTest {
 
     }
 
+    @Test
+    public void test7() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+
+        try {
+            Employee tom = mapper.getEmpByNameAndEmail("Tom", "tom@qq.com");
+            System.out.println(tom);
+        } finally {
+            sqlSession.close();
+        }
+
+    }
+
 
 }
