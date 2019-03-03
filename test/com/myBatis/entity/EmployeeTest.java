@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 class EmployeeTest {
 
@@ -123,6 +125,26 @@ class EmployeeTest {
         try {
             Employee tom = mapper.getEmpByNameAndEmail("Tom", "tom@qq.com");
             System.out.println(tom);
+        } finally {
+            sqlSession.close();
+        }
+
+    }
+
+    @Test
+    public void test8() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        map.put("id", 1713010614);
+        map.put("lastName", "Sam");
+
+        try {
+            Employee emp = mapper.getEmpByMap(map);
+
+            System.out.println(emp);
         } finally {
             sqlSession.close();
         }

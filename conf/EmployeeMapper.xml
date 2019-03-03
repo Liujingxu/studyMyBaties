@@ -21,4 +21,8 @@
     <select id="getEmpByNameAndEmail" resultType="com.myBatis.entity.Employee">
         select * from table_employee where last_name = #{id} and email = #{email};
     </select>
+
+    <select id="getEmpByMap" resultType="com.myBatis.entity.Employee" >
+        select * from table_employee where id= #{id} and last_name = #{lastName}
+    </select>
 </mapper>
