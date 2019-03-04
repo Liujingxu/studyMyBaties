@@ -215,5 +215,16 @@
   1. 最好使用数据模型(javaBean)进行传输
   2. 当传入参数不是数据模型时使用**map**操作
   3. 当传入参数是常用数据但不是数据模型使用TO模型
+  
+  + ##### version3.13
+  　　测试模糊查询得到结果存入List中，注意在 `EmployeeMapper.xml`
+  中配置时 `resultType` 属性不应是`List`类型，而应该是`Employee`,
+  他会自动转为集合返回。如下：
+  ```xml
+      <select id="getEmpLikeName" resultType="com.myBatis.entity.Employee">
+          select * from table_employee where last_name like #{lastName}
+      </select>
+ ```
+  
  
   
