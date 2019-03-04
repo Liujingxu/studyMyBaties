@@ -25,4 +25,8 @@
     <select id="getEmpByMap" resultType="com.myBatis.entity.Employee" >
         select * from table_employee where id= #{id} and last_name = #{lastName}
     </select>
+
+    <select id="getEmpLikeName" resultType="com.myBatis.entity.Employee">
+        select * from table_employee where last_name like #{lastName}
+    </select>
 </mapper>

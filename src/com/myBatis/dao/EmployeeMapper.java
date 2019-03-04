@@ -3,6 +3,7 @@ package com.myBatis.dao;
 import com.myBatis.entity.Employee;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 public interface EmployeeMapper {
@@ -18,4 +19,8 @@ public interface EmployeeMapper {
     public Employee getEmpByNameAndEmail(@Param("id") String last_name, @Param("email") String email);
 
     public Employee getEmpByMap(Map<String, Object> map);
+
+    public List<Employee> getEmpLikeName(String lastName);
+
+
 }

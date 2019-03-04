@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 class EmployeeTest {
@@ -145,6 +146,24 @@ class EmployeeTest {
             Employee emp = mapper.getEmpByMap(map);
 
             System.out.println(emp);
+        } finally {
+            sqlSession.close();
+        }
+
+    }
+
+    @Test
+    public void test9() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+
+        try {
+            List<Employee> list = mapper.getEmpLikeName("%m%");
+
+            for (Employee e: list) {
+                System.out.println(e);
+            }
         } finally {
             sqlSession.close();
         }
