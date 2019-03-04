@@ -170,5 +170,21 @@ class EmployeeTest {
 
     }
 
+    @Test
+    public void test10() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+
+        try {
+            Map<Integer, Employee> employeeMap = mapper.getEmpLikeNameByMap("%m%");
+
+            System.out.println(employeeMap);
+        } finally {
+            sqlSession.close();
+        }
+
+    }
+
 
 }

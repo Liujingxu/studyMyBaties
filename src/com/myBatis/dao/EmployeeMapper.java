@@ -1,6 +1,7 @@
 package com.myBatis.dao;
 
 import com.myBatis.entity.Employee;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,6 +22,9 @@ public interface EmployeeMapper {
     public Employee getEmpByMap(Map<String, Object> map);
 
     public List<Employee> getEmpLikeName(String lastName);
+
+    @MapKey("id")
+    public Map<Integer, Employee> getEmpLikeNameByMap(String lastName);
 
 
 }
