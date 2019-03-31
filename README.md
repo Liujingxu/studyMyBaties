@@ -236,5 +236,39 @@
   ```
     {1713010614=Employee{id=1713010614, lastName='Sam', email='tom@qq.com', gender=1}, 1713010615=Employee{id=1713010615, lastName='Yammy', email='yammy@qq.com', gender=0}, 1713010613=Employee{id=1713010613, lastName='Tom', email='tom@qq.com', gender=1}}
   ```
+  
+  + ##### version3.151
+      测试自定义查询mapper。在配置文件中配置自定义mapper
+      ```xml
+        <resultMap id="myEmp" type="com.myBatis.entity.Employee">
+                <id column="id" property="id" />
+                <result column="last_name" property="lastName" />
+                <result column="gender" property="gender" />
+                <result column="email" property="email" />
+            </resultMap>
+     ```
+     
+     在查询语句中添加属性不再是`resultType`而是 `resultMap`调用刚刚写好得到自定义mapper类
+     
+     同时自定义mapper支持级联属性
+       ```xml
+        <resultMap id="myCplEmp" type="com.myBatis.entity.Employee">
+                <id column="id" property="id" />
+                <result column="last_name" property="lastName" />
+                <result column="gender" property="gender" />
+                <result column="email" property="email" />
+                <result column="did" property="department.id" />
+                <result column="dept_name" property="department.deptName" />
+            </resultMap>
+        
+            <select id="getCplEmpById" resultMap="myCplEmp">
+                select e.id id, last_name, gender, email, d.id did, dept_name
+                 from table_employee e, table_dept d
+                  where e.d_id = d.id
+                      and e.id = #{id};
+            </select>
+       ```
+       
+       通过使用 *一级属性名.二级属性名*的方法进行级联查询。
  
   

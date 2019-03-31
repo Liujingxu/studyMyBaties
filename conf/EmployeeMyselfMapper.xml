@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myBatis.dao.EmployeeMyselfMapper">
+
+    <resultMap id="myEmp" type="com.myBatis.entity.Employee">
+        <id column="id" property="id" />
+        <result column="last_name" property="lastName" />
+        <result column="gender" property="gender" />
+        <result column="email" property="email" />
+    </resultMap>
+
+    <select id="getEmpById"  resultMap="myEmp">
+         select * from table_employee where id = #{id}
+    </select>
+
+    <resultMap id="myCplEmp" type="com.myBatis.entity.Employee">
+        <id column="id" property="id" />
+        <result column="last_name" property="lastName" />
+        <result column="gender" property="gender" />
+        <result column="email" property="email" />
+        <result column="did" property="department.id" />
+        <result column="dept_name" property="department.deptName" />
+    </resultMap>
+
+    <select id="getCplEmpById" resultMap="myCplEmp">
+        select e.id id, last_name, gender, email, d.id did, dept_name
+         from table_employee e, table_dept d
+          where e.d_id = d.id
+              and e.id = #{id};
+    </select>
+</mapper>

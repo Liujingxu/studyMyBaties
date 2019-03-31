@@ -20,5 +20,6 @@
     <mappers>
         <mapper resource="EmployeeMapper.xml" />
         <mapper class="com.myBatis.dao.EmployeeAnnotation"></mapper>
+        <mapper resource="EmployeeMyselfMapper.xml"></mapper>
     </mappers>
 </configuration>

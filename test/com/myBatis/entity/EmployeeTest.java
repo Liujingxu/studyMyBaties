@@ -2,6 +2,7 @@ package com.myBatis.entity;
 
 import com.myBatis.dao.EmployeeAnnotation;
 import com.myBatis.dao.EmployeeMapper;
+import com.myBatis.dao.EmployeeMyselfMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -79,7 +80,7 @@ class EmployeeTest {
         EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
 
         try {
-            mapper.insertEmp(new Employee(1713010618, "Ezio", "ezio@qq.com", "1"));
+//            mapper.insertEmp(new Employee(1713010618, "Ezio", "ezio@qq.com", "1"));
             sqlSession.commit();
         }finally {
             sqlSession.close();
@@ -108,9 +109,9 @@ class EmployeeTest {
         EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
 
         try {
-            Integer emp = mapper.updateEmp(new Employee(1713010615, "Yammy", "yammy@qq.com", "0"));
+//            Integer emp = mapper.updateEmp(new Employee(1713010615, "Yammy", "yammy@qq.com", "0"));
             sqlSession.commit();
-            System.out.println("there are " + emp + " changes");
+//            System.out.println("there are " + emp + " changes");
         } finally {
             sqlSession.close();
         }
@@ -184,6 +185,33 @@ class EmployeeTest {
             sqlSession.close();
         }
 
+    }
+
+    @Test
+    public void test11() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMyselfMapper employeeMyselfMapper = sqlSession.getMapper(EmployeeMyselfMapper.class);
+
+        try {
+            Employee employee = employeeMyselfMapper.getEmpById(1713010615);
+            System.out.println(employee);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void test12() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMyselfMapper myselfMapper = sqlSession.getMapper(EmployeeMyselfMapper.class);
+        try {
+            Employee emp = myselfMapper.getCplEmpById(1713010614);
+            System.out.println(emp);
+        } finally {
+            sqlSession.close();
+        }
     }
 
 

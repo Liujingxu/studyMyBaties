@@ -1,6 +1,10 @@
 package com.myBatis.entity;
 
 public class Employee {
+
+    public Employee() {
+    }
+
     public Employee(Integer id, String lastName, String email, String gender) {
         this.id = id;
         this.lastName = lastName;
@@ -12,6 +16,7 @@ public class Employee {
     private String lastName;
     private String email;
     private String gender;
+    private Department department;
 
     public Integer getId() {
         return id;
@@ -37,6 +42,21 @@ public class Employee {
         this.email = email;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     @Override
     public String toString() {
@@ -44,7 +64,8 @@ public class Employee {
                 "id=" + id +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", gender=" + gender +
+                ", gender='" + gender + '\'' +
+                ", department=" + department +
                 '}';
     }
 }
