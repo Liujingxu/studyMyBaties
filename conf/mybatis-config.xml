@@ -3,6 +3,9 @@
 <configuration>
 
     <properties resource="dbconfig.properties"/>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
     <typeAliases>
         <typeAlias type="com.myBatis.entity.Employee" alias="emp" />
     </typeAliases>
@@ -21,5 +24,6 @@
         <mapper resource="EmployeeMapper.xml" />
         <mapper class="com.myBatis.dao.EmployeeAnnotation"></mapper>
         <mapper resource="EmployeeMyselfMapper.xml"></mapper>
+        <mapper resource="DepartmentMapper.xml"></mapper>
     </mappers>
 </configuration>

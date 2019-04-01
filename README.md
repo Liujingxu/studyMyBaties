@@ -270,5 +270,56 @@
        ```
        
        通过使用 *一级属性名.二级属性名*的方法进行级联查询。
+       
+  + ##### version 3.152
+  
+    测试使用 `association`配置封装二级查询对象
+    * 通过在自定义 `resultMap`中写入进行简单的封装，使用方法几乎和 `resultMap`中的用法一致。
+    ```xml
+    <association property="department" javaType="com.myBatis.entity.Department">
+                <id column="id" property="id" />
+                <result column="dept_name" property="deptName" />
+            </association>
+    
+    ```
+    
+    * 通过该标签进行分布查询，通过简单的两个sql语句实现分级查询的效果
+    
+       具体通过写一个新接口 `DepartmentMapper` 来实现对department 数据进行操作的Dao层操作，其中存在一条通过Id查找department的方法
+    ```xml
+    <select id="getDeptById" resultType="com.myBatis.entity.Department" >
+            select id, dept_name  from table_dept where id = #{id}
+        </select>
+    ```
+      之后在 `EmployeeMyselfMapper` 中进行分级查询时调用接口的方法
+      ```xml
+        <resultMap id="myCplEmp3" type="com.myBatis.entity.Employee">
+        <id column="id" property="id" />
+        <result column="last_name" property="lastName" />
+        <result column="gender" property="gender" />
+        <result column="email" property="email" />
+        <association property="department" select="com.myBatis.dao.DepartmentMapper.getDeptById" column="d_id">
+        </association>
+    </resultMap>
+      ```
+      这样设置仅需两条简单的sql语句就可以实现复杂查询效果。
+      ```xml
+      <!-- 原sql -->
+        <select id="getCplEmpById2" resultMap="myCplEmp2">
+                select e.id id, last_name, gender, email, d.id did, dept_name
+                 from table_employee e, table_dept d
+                  where e.d_id = d.id
+                      and e.id = #{id};
+            </select>
+        <!-- 现sql -->
+        <select id="getDeptById" resultType="com.myBatis.entity.Department" >
+                select id, dept_name  from table_dept where id = #{id}
+            </select>
+        
+        <select id="getCplEmpById3" resultMap="myCplEmp3">
+                select * from table_employee where id = #{id}
+            </select>
+    
+      ```
  
   
