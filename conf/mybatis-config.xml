@@ -5,6 +5,8 @@
     <properties resource="dbconfig.properties"/>
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true" />
+        <setting name="aggressiveLazyLoading" value="false" />
     </settings>
     <typeAliases>
         <typeAlias type="com.myBatis.entity.Employee" alias="emp" />
