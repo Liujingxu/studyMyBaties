@@ -4,23 +4,23 @@
 <mapper namespace="com.myBatis.dao.EmployeeMyselfMapper">
 
     <resultMap id="myEmp" type="com.myBatis.entity.Employee">
-        <id column="id" property="id" />
-        <result column="last_name" property="lastName" />
-        <result column="gender" property="gender" />
-        <result column="email" property="email" />
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
     </resultMap>
 
-    <select id="getEmpById"  resultMap="myEmp">
+    <select id="getEmpById" resultMap="myEmp">
          select * from table_employee where id = #{id}
     </select>
 
     <resultMap id="myCplEmp" type="com.myBatis.entity.Employee">
-        <id column="id" property="id" />
-        <result column="last_name" property="lastName" />
-        <result column="gender" property="gender" />
-        <result column="email" property="email" />
-        <result column="did" property="department.id" />
-        <result column="dept_name" property="department.deptName" />
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+        <result column="did" property="department.id"/>
+        <result column="dept_name" property="department.deptName"/>
     </resultMap>
 
     <select id="getCplEmpById" resultMap="myCplEmp">
@@ -31,13 +31,13 @@
     </select>
 
     <resultMap id="myCplEmp2" type="com.myBatis.entity.Employee">
-        <id column="id" property="id" />
-        <result column="last_name" property="lastName" />
-        <result column="gender" property="gender" />
-        <result column="email" property="email" />
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
         <association property="department" javaType="com.myBatis.entity.Department">
-            <id column="id" property="id" />
-            <result column="dept_name" property="deptName" />
+            <id column="id" property="id"/>
+            <result column="dept_name" property="deptName"/>
         </association>
     </resultMap>
 
@@ -51,10 +51,10 @@
 
 
     <resultMap id="myCplEmp3" type="com.myBatis.entity.Employee">
-        <id column="id" property="id" />
-        <result column="last_name" property="lastName" />
-        <result column="gender" property="gender" />
-        <result column="email" property="email" />
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
         <association property="department" select="com.myBatis.dao.DepartmentMapper.getDeptById" column="d_id">
         </association>
     </resultMap>
@@ -67,26 +67,44 @@
     </select>
 
     <resultMap id="myCheckingEmp" type="com.myBatis.entity.Employee">
-        <id column="id" property="id" />
-        <result column="last_name" property="lastName" />
-        <result column="gender" property="gender" />
-        <result column="email" property="email" />
-        
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+
         <discriminator javaType="java.lang.String" column="gender">
             <case value="0" resultType="com.myBatis.entity.Employee">
                 <association property="department" select="com.myBatis.dao.DepartmentMapper.getDeptById" column="d_id">
                 </association>
             </case>
             <case value="1" resultType="com.myBatis.entity.Employee">
-                <id column="id" property="id" />
-                <result column="last_name" property="lastName" />
-                <result column="gender" property="gender" />
-                <result column="last_name" property="email" />
+                <id column="id" property="id"/>
+                <result column="last_name" property="lastName"/>
+                <result column="gender" property="gender"/>
+                <result column="last_name" property="email"/>
             </case>
         </discriminator>
     </resultMap>
 
     <select id="getEmpByChecking" resultMap="myCheckingEmp">
         select * from table_employee where id = #{id}
+    </select>
+
+    <select id="getEmpsByConditionIf" resultType="com.myBatis.entity.Employee">
+        select * from table_employee
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="lastName != null &amp;&amp; lastName != &quot;&quot;">
+                and last_name like #{lastName}
+            </if>
+            <if test="email != null &amp;&amp; email.trim() != &quot;&quot;">
+                and email = #{email}
+            </if>
+            <if test="gender == 0 or gender == 1">
+                and gender = #{gender}
+            </if>
+        </where>
     </select>
 </mapper>

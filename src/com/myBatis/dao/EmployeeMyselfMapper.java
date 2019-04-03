@@ -17,4 +17,6 @@ public interface EmployeeMyselfMapper {
     public List<Employee> getEmpByDeptId(Integer id);
 
     public Employee getEmpByChecking(Integer id);
+
+    public List<Employee> getEmpsByConditionIf(Employee employee);
 }

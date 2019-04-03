@@ -368,4 +368,41 @@
         ```
          在分布查询中， `getDeptByIdplus2`正常调用 `myDept2` 这个**resultMapper**并查询，然后在 `myDept2`的内部的 *collection* 中用到
          `getEmpByDeptId` 这个查询方法，参数 `column` 表示使用id列来查找，就像 `id = #{id}`
+         
+  #### version3.2
+  　　　学习动态sql的相关操作
+  + version3.20
+    > 四种常见查询语法
+    > 1. if
+    > 2. choose(when, otherwise)
+    > 3. trim(where, set)
+    > 4. foreach
+    
+    使用语法 [OGNL语法](http://commons.apache.org/proper/commons-ognl/language-guide.html)
+    
+  + version3.21
   
+    测试 *if* 语句，通过在 `<select></select>` 标签中插入 `<if test=""></if>` 来进行条件筛选，一般用于多条件查询
+    
+    ```xml
+    <select id="getEmpsByConditionIf" resultType="com.myBatis.entity.Employee">
+            select * from table_employee
+            <where>
+                <if test="id != null">
+                    id = #{id}
+                </if>
+                <if test="lastName != null &amp;&amp; lastName != &quot;&quot;">
+                    and last_name like #{lastName}
+                </if>
+                <if test="email != null &amp;&amp; email.trim() != &quot;&quot;">
+                    and email = #{email}
+                </if>
+                <if test="gender == 0 or gender == 1">
+                    and gender = #{gender}
+                </if>
+            </where>
+        </select>
+
+    ```
+    
+    将 *if* 语句插入 `<where></where>`标签中以解决 and 增多或缺少问题

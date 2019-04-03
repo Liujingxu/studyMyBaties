@@ -304,5 +304,20 @@ class EmployeeTest {
         }
     }
 
+    @Test
+    public void test19() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMyselfMapper mapper = sqlSession.getMapper(EmployeeMyselfMapper.class);
+        try {
+            Employee employee = new Employee(null, null, null, null);
+            List<Employee> emps = mapper.getEmpsByConditionIf(employee);
+            System.out.println(emps);
+        } finally {
+            sqlSession.close();
+        }
+
+    }
+
 
 }
