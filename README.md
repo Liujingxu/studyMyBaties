@@ -271,7 +271,7 @@
        
        通过使用 *一级属性名.二级属性名*的方法进行级联查询。
        
-  + ##### version 3.152
+  + ##### version3.152
   
     测试使用 `association`配置封装二级查询对象
     * 通过在自定义 `resultMap`中写入进行简单的封装，使用方法几乎和 `resultMap`中的用法一致。
@@ -321,5 +321,51 @@
             </select>
     
       ```
+      
+  + ##### version3.153
+  
+    测试用collection 来实现自定义*mapper*中的容器查询的功能，通过在 `resultMapper`中加入 `collection`标签。
+    
+    * 通过外连接的sql语句实现   
+      ```xml
+       <resultMap id="myDept" type="com.myBatis.entity.Department">
+              <id column="did" property="id" />
+              <result column="deptName" property="deptName" />
+              <collection property="employees" ofType="com.myBatis.entity.Employee">
+                  <id column="uid" property="id" />
+                  <result column="lastName" property="lastName" />
+                  <result column="email" property="email" />
+                  <result column="gender" property="gender" />
+              </collection>
+          </resultMap>
+      
+          <select id="getDeptByIdplus" resultMap="myDept">
+              select table_dept.id did, table_dept.dept_name deptName, table_employee.id uid, table_employee.last_name lastName, table_employee.email, table_employee.gender
+               from table_dept left join table_employee on table_employee.d_id = table_dept.id
+                where table_dept.id = #{id}
+          </select>
+
+      ```
+      
+      通过在 `myDept`内部的*collection*中进行定义容器的查询格式，与*resultMapper*中的定义方法基本相同。
+      
+     * 使用分布查询，使sql简单化
+       ```xml
+           <resultMap id="myDept2" type="com.myBatis.entity.Department">
+                   <id column="id" property="id" />
+                   <result column="dept_name" property="deptName" />
+                   <collection property="employees" select="com.myBatis.dao.EmployeeMyselfMapper.getEmpByDeptId" column="id">
+                   </collection>
+               </resultMap>
+           
+               <select id="getDeptByIdplus2" resultMap="myDept2">
+                   select id , dept_name from table_dept where id = #{id}
+               </select>
+            <select id="getEmpByDeptId" resultType="com.myBatis.entity.Employee">
+                    select *  from table_employee where d_id = #{id}
+                </select>
  
+        ```
+         在分布查询中， `getDeptByIdplus2`正常调用 `myDept2` 这个**resultMapper**并查询，然后在 `myDept2`的内部的 *collection* 中用到
+         `getEmpByDeptId` 这个查询方法，参数 `column` 表示使用id列来查找，就像 `id = #{id}`
   

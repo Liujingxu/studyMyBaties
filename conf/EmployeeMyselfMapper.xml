@@ -61,4 +61,8 @@
     <select id="getCplEmpById3" resultMap="myCplEmp3">
         select * from table_employee where id = #{id}
     </select>
+
+    <select id="getEmpByDeptId" resultType="com.myBatis.entity.Employee">
+        select *  from table_employee where d_id = #{id}
+    </select>
 </mapper>

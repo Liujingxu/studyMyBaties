@@ -1,8 +1,10 @@
 package com.myBatis.entity;
 
+import com.myBatis.dao.DepartmentMapper;
 import com.myBatis.dao.EmployeeAnnotation;
 import com.myBatis.dao.EmployeeMapper;
 import com.myBatis.dao.EmployeeMyselfMapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -249,9 +252,42 @@ class EmployeeTest {
         SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
         SqlSession sqlSession = sqlSessionFactory.openSession();
         EmployeeMyselfMapper mapper = sqlSession.getMapper(EmployeeMyselfMapper.class);
-        Employee emp = mapper.getCplEmpById3(1713010613);
-        System.out.println(emp.getLastName());
-        System.out.println(emp.getDepartment().getDeptName());
+        try {
+            Employee emp = mapper.getCplEmpById3(1713010613);
+            System.out.println(emp.getLastName());
+            System.out.println(emp.getDepartment().getDeptName());
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void test16() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        DepartmentMapper mapper = sqlSession.getMapper(DepartmentMapper.class);
+        try {
+            Department department = mapper.getDeptByIdplus(1);
+            System.out.println(department);
+            System.out.println(department.getEmployees());
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void test17() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        DepartmentMapper mapper = sqlSession.getMapper(DepartmentMapper.class);
+        try {
+            Department deprByIdplus2 = mapper.getDeptByIdplus2(1);
+            System.out.println(deprByIdplus2);
+            System.out.println(deprByIdplus2.getEmployees());
+        } finally {
+            sqlSession.close();
+        }
+
     }
 
 
