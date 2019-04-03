@@ -290,5 +290,19 @@ class EmployeeTest {
 
     }
 
+    @Test
+    public void test18() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMyselfMapper mapper = sqlSession.getMapper(EmployeeMyselfMapper.class);
+        try {
+            Employee emp = mapper.getEmpByChecking(1713010615);
+            System.out.println(emp);
+            System.out.println(emp.getDepartment());
+        } finally {
+            sqlSession.close();
+        }
+    }
+
 
 }

@@ -65,4 +65,28 @@
     <select id="getEmpByDeptId" resultType="com.myBatis.entity.Employee">
         select *  from table_employee where d_id = #{id}
     </select>
+
+    <resultMap id="myCheckingEmp" type="com.myBatis.entity.Employee">
+        <id column="id" property="id" />
+        <result column="last_name" property="lastName" />
+        <result column="gender" property="gender" />
+        <result column="email" property="email" />
+        
+        <discriminator javaType="java.lang.String" column="gender">
+            <case value="0" resultType="com.myBatis.entity.Employee">
+                <association property="department" select="com.myBatis.dao.DepartmentMapper.getDeptById" column="d_id">
+                </association>
+            </case>
+            <case value="1" resultType="com.myBatis.entity.Employee">
+                <id column="id" property="id" />
+                <result column="last_name" property="lastName" />
+                <result column="gender" property="gender" />
+                <result column="last_name" property="email" />
+            </case>
+        </discriminator>
+    </resultMap>
+
+    <select id="getEmpByChecking" resultMap="myCheckingEmp">
+        select * from table_employee where id = #{id}
+    </select>
 </mapper>
