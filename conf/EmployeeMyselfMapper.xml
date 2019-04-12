@@ -94,17 +94,87 @@
         select * from table_employee
         <where>
             <if test="id != null">
-                id = #{id}
+                id = #{id} and
             </if>
             <if test="lastName != null &amp;&amp; lastName != &quot;&quot;">
-                and last_name like #{lastName}
+                 last_name like #{lastName} and
             </if>
             <if test="email != null &amp;&amp; email.trim() != &quot;&quot;">
-                and email = #{email}
+                 email = #{email} and
             </if>
             <if test="gender == 0 or gender == 1">
-                and gender = #{gender}
+                 gender = #{gender} and
             </if>
         </where>
     </select>
+    
+    <select id="getEmpsByConditionTrim" resultType="com.myBatis.entity.Employee">
+        select * from table_employee
+        <trim prefix="where" suffixOverrides="and">
+            <if test="id != null">
+                id = #{id} and
+            </if>
+            <if test="lastName != null &amp;&amp; lastName != &quot;&quot;">
+                last_name like #{lastName} and
+            </if>
+            <if test="email != null &amp;&amp; email.trim() != &quot;&quot;">
+                email = #{email} and
+            </if>
+            <if test="gender == 0 or gender == 1">
+                gender = #{gender} and
+            </if>
+        </trim>
+    </select>
+    
+    <select id="getEmpsByConditionChoose" resultType="com.myBatis.entity.Employee">
+
+      select * from table_employee
+      where
+        <choose>
+            <when test="id != null">
+                id = #{id}
+            </when>
+            <when test="lastName != null">
+                last_name like #{lastName}
+            </when>
+            <when test="email">
+                email = #{email}
+            </when>
+            <otherwise>
+                1=1
+            </otherwise>
+        </choose>
+    </select>
+
+    <update id="updateEmpById">
+        update table_employee
+        <set>
+            <if test="lastName != null">
+                last_name = #{lastName},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="gender != null">
+                gender = #{gender}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateEmpById2">
+        update table_employee
+        <trim prefix="set" suffixOverrides=",">
+            <if test="lastName != null">
+                last_name = #{lastName},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="gender != null">
+                gender = #{gender}
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
 </mapper>

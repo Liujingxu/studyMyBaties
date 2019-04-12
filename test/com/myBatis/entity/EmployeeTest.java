@@ -310,7 +310,7 @@ class EmployeeTest {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         EmployeeMyselfMapper mapper = sqlSession.getMapper(EmployeeMyselfMapper.class);
         try {
-            Employee employee = new Employee(null, null, null, null);
+            Employee employee = new Employee(1713010613, null, null, null);
             List<Employee> emps = mapper.getEmpsByConditionIf(employee);
             System.out.println(emps);
         } finally {
@@ -319,5 +319,62 @@ class EmployeeTest {
 
     }
 
+    @Test
+    public void test20() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMyselfMapper mapper = sqlSession.getMapper(EmployeeMyselfMapper.class);
+        try {
+            Employee employee = new Employee(1713010613, null, null, null);
+            List<Employee> emps = mapper.getEmpsByConditionTrim(employee);
+            System.out.println(emps);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void test21() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMyselfMapper mapper = sqlSession.getMapper(EmployeeMyselfMapper.class);
+        try {
+            Employee employee = new Employee(null, null, null, null);
+            List<Employee> emps = mapper.getEmpsByConditionChoose(employee);
+            System.out.println(emps);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void test22() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMyselfMapper mapper = sqlSession.getMapper(EmployeeMyselfMapper.class);
+        try {
+            Employee employee = new Employee(1713010613, "Tom", "tom@qq.com", null);
+            mapper.updateEmpById(employee);
+            sqlSession.commit();
+        } finally {
+            sqlSession.close();
+        }
+
+    }
+
+    @Test
+    public void test23() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactoryl();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMyselfMapper mapper = sqlSession.getMapper(EmployeeMyselfMapper.class);
+        try {
+            Employee employee = new Employee(1713010613, "Tom", "sam@qq.com", null);
+            mapper.updateEmpById2(employee);
+            sqlSession.close();
+        } finally {
+            sqlSession.close();
+        }
+
+    }
 
 }

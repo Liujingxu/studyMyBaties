@@ -406,3 +406,18 @@
     ```
     
     将 *if* 语句插入 `<where></where>`标签中以解决 and 增多或缺少问题
+  
+  + version3.22
+  
+    测试 *trim* 语法， *choose* 语法， *set*语法
+    
+    + *trim* 一般与上文中 *if* 一起使用，用于增加与消除前缀后缀，它有四个属性。
+       + **prefix**: 用于在语句前添加固定字符串;
+       + **suffix**: 用于在语句后添加固定字符串
+       + **prefixOverrides**: 用于删除不必要的固定字符串前缀;
+       + **suffixOverrides**: 用于删除不必要的固定字符串后缀;
+       
+    + *choose* 一般用于单一条件查询，有些类似于 *switch*，内部有子标签 `<when></when>`和 `<otherwise></otherwise>`分别类似于 `case` 与 `default`   
+    
+    + *set* 用于编写更新语句，同样与上文 *if* 连用，通过该标签来添加 `set` 与消除多余的连接词。同时可以以 *trim* 的形式达到同样的效果。 *但是为什么我的没效果！！*
+    

@@ -19,4 +19,12 @@ public interface EmployeeMyselfMapper {
     public Employee getEmpByChecking(Integer id);
 
     public List<Employee> getEmpsByConditionIf(Employee employee);
+
+    public List<Employee> getEmpsByConditionTrim(Employee employee);
+
+    public List<Employee> getEmpsByConditionChoose(Employee employee);
+
+    public void updateEmpById(Employee employee);
+
+    public void updateEmpById2(Employee employee);
 }
